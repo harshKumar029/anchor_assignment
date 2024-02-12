@@ -24,7 +24,7 @@ const createOtp = async (req, res) => {
     const otp = generateOTP();
     otpData = {...otpData, [email]:otp}
     console.log(otpData)
-    // Compose email message
+
     const mailOptions = {
         from: 'harshanand029@gmail.com',
         to: email,
@@ -49,13 +49,7 @@ const validateOtp = async (req, res) => {
     console.log("jccccg",email)
     // email = "deepaksaini63871@gmail.com"
     // otp = "522169"
-    // Check if OTP is valid
     if (email && otp) {
-        // Here, you should have a mechanism to store the OTP temporarily,
-        // such as in a database or in-memory data structure (e.g., object)
-        // For demonstration purposes, I'll just assume you have stored it in an object
-
-        // Retrieve the OTP for the provided email address
         const storedOTP = otpData[email];
         console.log(storedOTP)
         if (storedOTP && storedOTP === parseInt(otp)) {
@@ -64,7 +58,6 @@ const validateOtp = async (req, res) => {
             await newlogin.save();
             // res.status(200).send('OTP is valid');
             res.status(200).json({status: 'success',email:email});
-            // Optionally, you may want to clear the stored OTP to prevent further use
             delete otpData[email];
         } else {
             // OTP is invalid
